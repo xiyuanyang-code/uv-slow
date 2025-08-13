@@ -1,4 +1,4 @@
-# Requirements Cleaner
+# uv-slow
 
 A minimal tool to clean and generate `requirements.txt` from `pip freeze` output.
 Optionally scans Python files to identify actually used dependencies.
