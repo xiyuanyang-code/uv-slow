@@ -12,7 +12,11 @@ What are the modern, efficient, and convenient Python package management tools? 
 
 These tools create project-specific virtual environments, effectively solving the problem of "dependency hell" that often plagues Python version management.
 
-However, for existing codebases that don't use Poetry or uv, or for developers who prefer to manage environments with system-level tools like **Conda**, the dependency hell problem remains difficult to solve. A significant reason for this is that developers often don't properly maintain their `requirements.txt` files. A tiny difference between server-side and local dependencies can lead to the entire system failing to function correctly.
+However, for **existing codebases that don't use Poetry or uv**, or for **developers who prefer to manage environments with system-level tools** like **Conda**, the dependency hell problem remains difficult to solve. 
+
+A significant reason for this is that **developers often don't properly maintain their `requirements.txt` files**. A tiny difference between server-side and local dependencies can lead to the entire system failing to function correctly.
+
+The fact that your local environment runs smoothly doesn't mean your project dependencies are clean. We often run into situations where a `requirements.txt` file exported via `pip freeze` from the local environment contains a large number of redundant packages that the project doesn't actually need. This not only makes installation on a new environment take longer but also has the potential to introduce unnecessary dependency conflicts. Therefore, generating a **minimalist, core** `requirements.txt` file is crucial. It ensures the reproducibility of your project environment, boosts deployment efficiency, and reduces potential dependency issues.
 
 This is where `uv-slow` comes in. It was created to solve the problem of automatically generating a **clear, accurate, and reproducible** `requirements.txt` file, particularly for developers using system-level virtual environments like Conda. It aims to ensure that the dependencies required for your project are precisely documented, making it easy to replicate the exact same environment anywhere.
 
@@ -87,6 +91,8 @@ See [Example project](./example/) for more details.
 ![Demo](./assests/image.png)
 
 ```text
+# Python Version 3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:50:58) [GCC 12.3.0] is recommended
+# Several Dependencies: 
 Flask==3.1.1
 numpy==1.26.4
 requests==2.32.4
