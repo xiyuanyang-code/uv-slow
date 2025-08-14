@@ -183,5 +183,4 @@ pyrightconfig.json
 **/.history
 **/out
 **/build
-test_project
-requirements.txt
+example/requirements.txt

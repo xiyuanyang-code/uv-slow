@@ -1,27 +1,64 @@
-# uv-slow
+# uv-slow: An extremely slow Python package and project manager
 
 A minimal tool to clean and generate `requirements.txt` from `pip list` output.
-Scans Python files to identify actually used dependencies by default.
 
-## Features
+## Introduction
 
-- Scans current environment dependencies using `pip list`
-- Filters out unwanted dependencies
-- Generates a clean `requirements.txt` file
-- Command-line interface with options
-- Scans Python files by default to identify actually used packages
-- Can be installed via pip
+What are the modern, efficient, and convenient Python package management tools? **uv** and **Poetry**.
+
+- [uv](https://docs.astral.sh/uv/)
+
+- [poetry](https://python-poetry.org/)
+
+These tools create project-specific virtual environments, effectively solving the problem of "dependency hell" that often plagues Python version management.
+
+However, for existing codebases that don't use Poetry or uv, or for developers who prefer to manage environments with system-level tools like **Conda**, the dependency hell problem remains difficult to solve. A significant reason for this is that developers often don't properly maintain their `requirements.txt` files. A tiny difference between server-side and local dependencies can lead to the entire system failing to function correctly.
+
+This is where `uv-slow` comes in. It was created to solve the problem of automatically generating a **clear, accurate, and reproducible** `requirements.txt` file, particularly for developers using system-level virtual environments like Conda. It aims to ensure that the dependencies required for your project are precisely documented, making it easy to replicate the exact same environment anywhere.
+
+- `uv-slow` is much slower than `uv` for it is written in Python.
+
+- `uv-slow` is much cruder than `uv` for it only support generating `requirements.txt`
+
+- but I use `uv-slow` more than `uv` because I have written so many rubbish code in the past! 🤓
 
 ## Installation
 
+`uv-slow` is purely written on Python standard library modules, so you don't need to install any packages for preliminaries!
+
 ```bash
-pip install uvslow
+# clone the project
+git clone https://github.com/xiyuanyang-code/uv-slow.git
+cd uv-slow
+
+# install locally
+pip install -e .
+```
+
+Type into your cli for `uvslow -h` for more messages!
+
+```text
+usage: uvslow [-h] [-o OUTPUT] [-e [EXCLUDE ...]] [-d DIRECTORY] [--dry-run] [--scan-imports] [--no-scan-imports]
+
+Clean and generate requirements.txt from pip list.
+
+options:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output file name.
+  -e [EXCLUDE ...], --exclude [EXCLUDE ...]
+                        Packages to exclude.
+  -d DIRECTORY, --directory DIRECTORY
+                        Directory to scan for imports.
+  --dry-run             Show what would be written without writing.
+  --scan-imports        Scan Python files for imports.
+  --no-scan-imports     Disable scanning.
 ```
 
 ## Usage
 
 ```bash
-# Basic usage (scans current directory by default)
+# Basic usage (scans current directory by default, and attempts to write into requirements.txt)
 uvslow
 
 # Specify output file
@@ -30,7 +67,7 @@ uvslow -o my_requirements.txt
 # Exclude specific packages
 uvslow -e numpy pandas
 
-# Dry run to see what would be written
+# Dry run to see what would be written, but not actually written
 uvslow --dry-run
 
 # Disable import scanning
@@ -43,16 +80,17 @@ uvslow -d /path/to/project
 uvslow -o requirements.txt -e setuptools pip --dry-run
 ```
 
-## Development
+## Demo
 
-To install in development mode:
+See [Example project](./example/) for more details.
 
-```bash
-pip install -e .
+![Demo](./assests/image.png)
+
+```text
+Flask==3.1.1
+numpy==1.26.4
+requests==2.32.4
+torch==2.6.0+cpu
+torchaudio==2.6.0+cpu
+torchvision==0.21.0+cpu
 ```
-
-## Todo List
-
-- Add more test cases
-- Fix problems for something like: `Flask @ file:///croot/flask_1716545870149/work`
-- Add import which are not included
