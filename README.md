@@ -1,4 +1,5 @@
-# uv-slow: An extremely slow Python package and project manager
+# uv-slow: Tools to generate `requirements.txt` for Python Project
+> uv-slow: An extremely slow Python package and project manager
 
 A minimal tool to clean and generate `requirements.txt` from `pip list` output.
 
