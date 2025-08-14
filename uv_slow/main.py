@@ -33,6 +33,9 @@ class RequirementsGenerator:
         self.all_dependencies: List[Dict[str, str]] = []
         self.used_packages: Set[str] = set()
 
+    def get_python_version(self) -> str:
+        return sys.version
+
     def get_installed_packages(self) -> None:
         """
         Retrieves a list of all installed packages using pip.
@@ -217,6 +220,10 @@ class RequirementsGenerator:
         """Writes the final list of dependencies to the output file."""
         try:
             with open(self.output_file, "w") as f:
+                # write some comments and the Python version
+                self.version = self.get_python_version()
+                f.write(f"# Python Version {self.version} is recommended\n")
+                f.write(f"# Several Dependencies: \n")
                 for dep in dependencies:
                     f.write(f"{dep['name']}=={dep['version']}\n")
             print(
