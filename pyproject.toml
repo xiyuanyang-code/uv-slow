@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uvslow"
+version = "0.1.1"
+description = "A minimal tool to clean and generate requirements.txt from pip freeze output with optional import scanning"
+readme = "README.md"
+authors = [{name = "Xiyuan Yang", email = "yangxiyuan@sjtu.edu.cn"}]
+requires-python = ">=3.7"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["uv_slow"]
+
+[project.urls]
+Homepage = "https://github.com/xiyuanyang-code/uv-slow"
+Repository = "https://github.com/xiyuanyang-code/uv-slow"
+
+[project.scripts]
+uvslow = "uv_slow.main:main"

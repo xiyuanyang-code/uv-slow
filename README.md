@@ -1,52 +1,58 @@
 # uv-slow
 
-A minimal tool to clean and generate `requirements.txt` from `pip freeze` output.
-Optionally scans Python files to identify actually used dependencies.
-
->[!WARNING]
-> To be Refactored.
+A minimal tool to clean and generate `requirements.txt` from `pip list` output.
+Scans Python files to identify actually used dependencies by default.
 
 ## Features
 
-- Scans current environment dependencies using `pip freeze`
+- Scans current environment dependencies using `pip list`
 - Filters out unwanted dependencies
 - Generates a clean `requirements.txt` file
 - Command-line interface with options
-- Optional import scanning to identify actually used packages
+- Scans Python files by default to identify actually used packages
+- Can be installed via pip
+
+## Installation
+
+```bash
+pip install uvslow
+```
 
 ## Usage
 
 ```bash
-# Basic usage
-python requirements_cleaner.py
+# Basic usage (scans current directory by default)
+uvslow
 
 # Specify output file
-python requirements_cleaner.py -o my_requirements.txt
+uvslow -o my_requirements.txt
 
 # Exclude specific packages
-python requirements_cleaner.py -e numpy pandas
+uvslow -e numpy pandas
 
 # Dry run to see what would be written
-python requirements_cleaner.py --dry-run
+uvslow --dry-run
 
-# Scan imports in current directory and only include used packages
-python requirements_cleaner.py --scan-imports
+# Disable import scanning
+uvslow --no-scan-imports
 
 # Scan imports in specific directory
-python requirements_cleaner.py --scan-imports -d /path/to/project
+uvslow -d /path/to/project
 
 # Combine options
-python requirements_cleaner.py -o requirements.txt -e setuptools pip --scan-imports --dry-run
+uvslow -o requirements.txt -e setuptools pip --dry-run
+```
+
+## Development
+
+To install in development mode:
+
+```bash
+pip install -e .
 ```
 
 ## Todo List
 
-- Make it packaged
-
 - Add more test cases
-
 - Fix problems for something like: `Flask @ file:///croot/flask_1716545870149/work`
-
-- Update docs and rewrite README
-
 - Add import which are not included
